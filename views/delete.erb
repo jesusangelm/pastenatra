@@ -1,0 +1,8 @@
+<p>
+  Estas a punto de eliminar el Snippet: <strong><%=h @snippet.title %></strong>
+</p>
+<form action="/<%= @snippet.id %>" method="post" accept-charset="utf-8">
+  <input type="hidden" name="_method" value="delete" />
+  <input type="submit" value="Eliminar!" />
+  <a href="/<%= @snippet.id %>">Cancelar!</a>
+</form>
