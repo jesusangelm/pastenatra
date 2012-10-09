@@ -2,10 +2,15 @@ require "rubygems"
 require "sinatra"
 require "rack-flash"
 require "sinatra/redirect_with_flash"
-require "./model/snippet"
+require "dm-core"
+require "dm-migrations"
+require "digest/sha1"
+require "sinatra-authentication"
 require "coderay"
+require "./model/snippet"
 Bundler.require
 
+use Rack::Session::Cookie, :secret => "noseQUE$%$#^$#esEsTo...P3r0Bueh!"
 enable :sessions
 use Rack::Flash
 
@@ -19,8 +24,8 @@ end
 
 # Index Action
 get "/" do
-  @snippets = Snippet.all :order => :id.desc
-  @title = "Snippets"
+  #@snippets = Snippet.all :order => :id.desc
+  #@title = "Snippets"
 
   erb :index
 end
@@ -52,13 +57,18 @@ get "/:id" do
 end
 
 get "/:id/delete" do
+  login_required
   @snippet = Snippet.get params[:id]
   @title = "Eliminar el Snippet ##{params[:id]}"
 
-  if @snippet
-    erb :delete
+  if current_user.admin?
+    if @snippet
+      erb :delete
+    else
+      redirect "/", :error => "No se encontro el Snippet..."
+    end
   else
-    redirect "/", :error => "No se encontro el Snippet..."
+    redirect "/", :error => "NO tienes permisos para realizar esta accion."
   end
 end
 

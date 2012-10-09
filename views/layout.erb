@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  
+
     <title><%= "#{@title}" + " | #{SITE_TITLE}" %></title>
     <link rel="stylesheet" href="/css/normalize.css" />
     <link rel="stylesheet" href="/css/estilo.css" />
@@ -10,10 +10,24 @@
 
   <body>
     <header>
-      <hgroup>
-        <h1><a href="/"><%= SITE_TITLE %></a></h1>
-        <h2><%= SITE_DESCRIPTION %></h2>
-      </hgroup>
+    <hgroup>
+    <h1><a href="/"><%= SITE_TITLE %></a></h1>
+    <h2><%= SITE_DESCRIPTION %></h2>
+    </hgroup>
+    <nav>
+    <ul>
+      <% if logged_in? %>
+        <li><%= "Bienvenid@, " + current_user.email %></li>
+        <% if current_user.admin? %>
+          <li>| <a href="/users">Usuarios</a></li>
+        <% end %>
+        <li>| <a href="/users/<%= current_user.id %>/edit">Mi cuenta</a></li>
+        <li>| <a href="/logout">Salir</a></li>
+      <% else %>
+        <li><a href="/login">Entrar</a> | <a href="/signup">Registrarse</a></li>
+      <% end %>
+    </ul>
+    </nav>
     </header>
 
     <div id="main">

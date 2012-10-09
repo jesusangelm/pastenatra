@@ -6,6 +6,8 @@ gem "builder"
 gem "rack-flash3"
 gem "sinatra-redirect-with-flash"
 gem "coderay"
+gem "haml"
+gem "sinatra-authentication"
 
 group :production do
   gem "dm-postgres-adapter"

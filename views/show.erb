@@ -1,7 +1,9 @@
 <article>
   <p>Titulo: <strong><%= @snippet.title.capitalize %></strong></p>
   <p>Lenguaje: <%= @snippet.language.capitalize %></p>
-  <p><a href="/<%= @snippet.id %>/delete">Eliminar...</a></p>
+  <% if current_user.admin? %>
+    <p><a href="/<%= @snippet.id %>/delete">Eliminar...</a></p>
+  <% end %>
   <pre>
     <%= CodeRay.scan(@snippet.code, @snippet.language).div(:line_numbers => :table)  %>
   </pre>
