@@ -24,10 +24,20 @@ end
 
 # Index Action
 get "/" do
-  #@snippets = Snippet.all :order => :id.desc
-  #@title = "Snippets"
+  @title = "Nuevo Snippet"
 
   erb :index
+end
+
+get "/list" do
+  if current_user.admin?
+    @snippets = Snippet.all :order => :id.desc
+    @title = "Snippets"
+
+    erb :list
+  else
+    redirect "/", :error => "NO tienes permisos para realizar esta accion."
+  end
 end
 
 # Create Action
@@ -80,3 +90,4 @@ delete "/:id" do
     redirect "/", :error => "Error al eliminar el Snippet..."
   end
 end
+

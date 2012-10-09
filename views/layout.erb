@@ -17,9 +17,10 @@
     <nav>
     <ul>
       <% if logged_in? %>
-        <li><%= "Bienvenid@, " + current_user.email %></li>
+        <li><%= "Bienvenid@, " + current_user.email %></li><br />
         <% if current_user.admin? %>
-          <li>| <a href="/users">Usuarios</a></li>
+          <li><a href="/users">Usuarios</a></li>
+          <li>| <a href="/list">Snippets</a></li>
         <% end %>
         <li>| <a href="/users/<%= current_user.id %>/edit">Mi cuenta</a></li>
         <li>| <a href="/logout">Salir</a></li>

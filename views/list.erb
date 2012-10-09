@@ -1,0 +1,9 @@
+<% @snippets.each do |snippet| %>
+  <article>
+  <p>
+    Titulo: <strong><%=h snippet.title.capitalize %></strong>
+           <span><a href="/<%= snippet.id %>">Mostrar</a></span>
+  </p>
+  <p>Lenguaje: <%=h snippet.language.capitalize %></p>
+  </article>
+<% end %>
